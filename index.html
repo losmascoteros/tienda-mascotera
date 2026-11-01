@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tienda · Los Mascoteros</title>
+  <meta name="description" content="Productos para tu mascota: juguetes, alimento, higiene, paseos y más.">
+  <meta name="theme-color" content="#0E0416">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
+  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="icon" href="logo.png">
+</head>
+<body>
+
+  <header class="encabezado">
+    <div class="encabezado-in">
+      <img src="logo.png" alt="Los Mascoteros" class="logo">
+      <h1>🛍️ Tienda Los Mascoteros</h1>
+      <p>Todo para tu mascota, con precio y stock al día.</p>
+    </div>
+  </header>
+  <nav class="menu" id="menu" aria-label="Menú de la tienda" hidden>
+    <div class="menu-in">
+      <a class="menu-item" data-ruta="inicio" href="#/"><span class="menu-ico">🏠</span><span>Inicio</span></a>
+      <a class="menu-item" data-ruta="perro" href="#/perro" hidden><span class="menu-ico">🐶</span><span>Perro</span></a>
+      <a class="menu-item" data-ruta="gato" href="#/gato" hidden><span class="menu-ico">🐱</span><span>Gato</span></a>
+      <a class="menu-item" data-ruta="roedores" href="#/roedores" hidden><span class="menu-ico">🐹</span><span>Roedores</span></a>
+      <a class="menu-item" data-ruta="peces" href="#/peces" hidden><span class="menu-ico">🐠</span><span>Peces</span></a>
+      <a class="menu-item" data-ruta="ofertas" href="#/ofertas" hidden><span class="menu-ico">🔥</span><span>Ofertas</span></a>
+      <a class="menu-item" data-ruta="pedido" href="#/pedido"><span class="menu-ico">🛒</span><span>Pedido</span><span class="menu-n" id="menu-n" hidden>0</span></a>
+    </div>
+  </nav>
+  <a class="carro-barra" id="carro-barra" href="#/pedido" hidden><span id="carro-texto"></span></a>
+
+  <main id="vista" aria-live="polite"></main>
+
+  <footer class="pie">
+    <p class="pie-titulo">Seguinos y escribinos</p>
+    <div class="pie-social">
+      <a class="social ig" id="pie-ig" href="#" target="_blank" rel="noopener">
+        <span class="social-ico">📸</span>
+        <span class="social-txt"><strong>Instagram</strong><small>@losmascoterosario</small></span>
+      </a>
+      <a class="social wa" id="pie-wa" href="#" target="_blank" rel="noopener">
+        <span class="social-ico">💬</span>
+        <span class="social-txt"><strong>WhatsApp</strong><small>Consultas y pedidos</small></span>
+      </a>
+    </div>
+    <p class="aclaracion">Los precios y el stock pueden cambiar. Confirmamos todo por WhatsApp antes de cerrar tu pedido.</p>
+  </footer>
+  <script>
+    // Si la tienda no arranca, lo avisa en pantalla (por ejemplo, si app.js está incompleto o no está).
+    (function () {
+      var vista = document.getElementById("vista");
+      function avisar(detalle) {
+        if (vista.children.length) return;
+        var m = document.createElement("div");
+        m.className = "mensaje";
+        var h = document.createElement("h2");
+        h.textContent = "La tienda no pudo arrancar";
+        var p = document.createElement("p");
+        p.textContent = "Falta un archivo o está incompleto. Revisá que app.js, config.js y styles.css estén en la misma carpeta que index.html, y que app.js pese unos 17 KB.";
+        var d = document.createElement("p");
+        d.className = "vacio";
+        d.textContent = "Detalle técnico: " + detalle;
+        m.appendChild(h); m.appendChild(p); m.appendChild(d);
+        vista.appendChild(m);
+      }
+      window.addEventListener("error", function (e) {
+        var detalle;
+        if (e.target && e.target !== window && e.target.tagName !== "SCRIPT") return;  // ignora fotos u otros recursos
+        if (e.target && e.target.tagName === "SCRIPT") {
+          detalle = "no se pudo cargar " + (e.target.getAttribute("src") || "un archivo");
+        } else {
+          detalle = (e.message || "error") + " (" + String(e.filename || "").split("/").pop().split("?")[0] + ", línea " + (e.lineno || "?") + ")";
+        }
+        setTimeout(function () { avisar(detalle); }, 0);
+      }, true);
+      setTimeout(function () { avisar("app.js no llegó a ejecutarse"); }, 3000);
+    })();
+  </script>
+  <script src="config.js?v=6"></script>
+  <script src="app.js?v=6"></script>
+</body>
+</html>
